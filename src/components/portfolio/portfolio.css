@@ -1,0 +1,82 @@
+.portfolio__container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.portfolio__item {
+  background: var(--color-bg-variant);
+  padding: 1.3rem;
+  border-radius: 2rem;
+  border: 1px solid transparent;
+  transition: var(--transition);
+  /* overflow: hidden; */
+}
+.portfolio__item:hover {
+  border-color: var(--color-primary-variant);
+  background: transparent;
+}
+
+.portfolio__item-image {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  transition: scale 0.4s;
+}
+.portfolio__item-image:hover {
+  scale: 1.2;
+}
+
+.portfolio__title {
+  margin: 2rem 0;
+}
+
+.portfolio__item-cta {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* =========== MODAL ============== */
+.modal,
+.overlay {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  position: fixed;
+}
+.overlay img {
+  width: 50vw;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 2.5rem;
+}
+
+.overlay {
+  background: rgba(38, 40, 43, 0.9);
+}
+
+/* =============== MEDIA QUERIES (MEDIUM DEVIVCES) =============== */
+@media screen and (max-width: 1024px) {
+  .portfolio__container {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+  }
+}
+
+/* =============== MEDIA QUERIES (SMALL DEVIVCES) =============== */
+@media screen and (max-width: 600px) {
+  .portfolio__container {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .modal img {
+    width: 90%;
+  }
+}
