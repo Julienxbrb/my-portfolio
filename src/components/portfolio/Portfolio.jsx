@@ -16,35 +16,35 @@ const Portfolio = () => {
         <PortfolioItem
           src={IMG5}
           title="3h33 - Réseau de la nuit"
-          subtitle="HTML/CSS, JavaScript et PL/pgSQL"
+          subtitle="Stacks : HTML/CSS, JavaScript"
           srcGithub="https://github.com/Julienxbrb/3h33-app"
           srcLiveDemo="https://3h33agency.fr"
         />
         <PortfolioItem
           src={IMG1}
           title="Site de naturopathie"
-          subtitle="HTML/CSS"
+          subtitle="Stacks : HTML/CSS, JavaScript"
           srcGithub="https://github.com/Julienxbrb/Naturopathy"
           srcLiveDemo="https://litanagc.netlify.app"
         />
         <PortfolioItem
           src={IMG2}
           title="One Piece fandom"
-          subtitle="HTML/CSS, JavaScript"
+          subtitle="Stacks : HTML/CSS, JavaScript"
           srcGithub="https://github.com/Julienxbrb/OnePiece-Fandom"
           srcLiveDemo="https://onepiece-wikifan.netlify.app"
         />
         <PortfolioItem
           src={IMG3}
           title="Réplique de Sonder"
-          subtitle="HTML/CSS, JavaScript"
+          subtitle="Stacks : HTML/CSS, JavaScript"
           srcGithub="https://github.com/Julienxbrb/Sonder-Replication"
           srcLiveDemo="https://sonder-replication.netlify.app"
         />
         <PortfolioItem
           src={IMG4}
           title="Guess my numbers"
-          subtitle="HTML/CSS, JavaScript"
+          subtitle="Stacks : HTML/CSS, JavaScript"
           srcGithub="https://github.com/Julienxbrb/guessmynumbers"
           srcLiveDemo="https://guessmynumbers-brb.netlify.app"
         />
