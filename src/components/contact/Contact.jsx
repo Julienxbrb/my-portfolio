@@ -3,19 +3,33 @@ import "./contact.css";
 import { MdOutlineEmail } from "react-icons/md";
 import { FiSmartphone } from "react-icons/fi";
 import { useRef, useState } from "react";
+import HCaptcha from "@hcaptcha/react-hcaptcha";
 
-const WEB3FORMS_ACCESS_KEY = "d2af5d2f-0859-4ac4-a438-91f259e56679";
+const WEB3FORMS_ACCESS_KEY = "COLLE_TA_CLE_ICI"; // remplace par la clé reçue par email depuis web3forms.com
+
+// Sitekey de test partagée par Web3Forms (fonctionne sans compte hCaptcha séparé).
+// Si tu veux un jour ton propre compte hCaptcha, remplace-la par ta sitekey perso.
+const HCAPTCHA_SITEKEY = "50b2fe65-b00b-4b9e-ad62-3ba471098be2";
 
 const Contact = () => {
   const form = useRef();
-  const [status, setStatus] = useState(null); // null | "sending" | "success" | "error"
+  const captchaRef = useRef();
+  const [captchaToken, setCaptchaToken] = useState(null);
+  const [status, setStatus] = useState(null); // null | "sending" | "success" | "error" | "captcha-required"
 
   const sendEmail = async (e) => {
     e.preventDefault();
+
+    if (!captchaToken) {
+      setStatus("captcha-required");
+      return;
+    }
+
     setStatus("sending");
 
     const formData = new FormData(form.current);
     formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+    formData.append("h-captcha-response", captchaToken);
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -33,6 +47,11 @@ const Contact = () => {
       }
     } catch (error) {
       setStatus("error");
+    } finally {
+      // Un token hCaptcha est à usage unique : on réinitialise le widget
+      // pour que l'utilisateur (ou toi, en cas de nouveau test) puisse renvoyer un message.
+      captchaRef.current?.resetCaptcha();
+      setCaptchaToken(null);
     }
   };
 
@@ -63,6 +82,7 @@ const Contact = () => {
         <form ref={form} onSubmit={sendEmail}>
           <input type="text" name="name" placeholder="Nom / Prénom" required />
           <input type="email" name="email" placeholder="Email" required />
+          <input type="text" name="subject" placeholder="Sujet" required />
           <textarea
             name="message"
             id=""
@@ -70,6 +90,18 @@ const Contact = () => {
             placeholder="Votre Message"
             required
           ></textarea>
+
+          <HCaptcha
+            ref={captchaRef}
+            sitekey={HCAPTCHA_SITEKEY}
+            reCaptchaCompat={false}
+            onVerify={(token) => {
+              setCaptchaToken(token);
+              setStatus(null);
+            }}
+            onExpire={() => setCaptchaToken(null)}
+          />
+
           <button
             type="submit"
             className="btn btn-primary"
@@ -78,14 +110,19 @@ const Contact = () => {
             {status === "sending" ? "Envoi en cours..." : "Envoyer"}
           </button>
 
+          {status === "captcha-required" && (
+            <p className="form-feedback form-feedback--error">
+              Merci de valider le captcha avant d'envoyer.
+            </p>
+          )}
           {status === "success" && (
             <p className="form-feedback form-feedback--success">
-              Message envoyé, merci ! Je te répondrai rapidement.
+              Message envoyé, merci ! Je vous répondrai rapidement.
             </p>
           )}
           {status === "error" && (
             <p className="form-feedback form-feedback--error">
-              Une erreur est survenue, réessaie dans un instant.
+              Une erreur est survenue, réessayez dans un instant.
             </p>
           )}
         </form>
