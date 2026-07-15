@@ -31,6 +31,7 @@ const Contact = () => {
     const payload = Object.fromEntries(formData.entries());
     payload.access_key = WEB3FORMS_ACCESS_KEY;
     payload["h-captcha-response"] = captchaToken;
+    delete payload["g-recaptcha-response"]; // sécurité: le champ caché de compat reCaptcha ne doit jamais partir
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
@@ -98,6 +99,7 @@ const Contact = () => {
           <HCaptcha
             ref={captchaRef}
             sitekey={HCAPTCHA_SITEKEY}
+            reCaptchaCompat={false}
             onVerify={(token) => {
               setCaptchaToken(token);
               setStatus(null);
