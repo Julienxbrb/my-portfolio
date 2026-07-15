@@ -5,7 +5,7 @@ import { FiSmartphone } from "react-icons/fi";
 import { useRef, useState } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
-const WEB3FORMS_ACCESS_KEY = "d2af5d2f-0859-4ac4-a438-91f259e56679";
+const WEB3FORMS_ACCESS_KEY = "COLLE_TA_CLE_ICI"; // remplace par la clé reçue par email depuis web3forms.com
 
 // Sitekey de test partagée par Web3Forms (fonctionne sans compte hCaptcha séparé).
 // Si tu veux un jour ton propre compte hCaptcha, remplace-la par ta sitekey perso.
@@ -28,14 +28,18 @@ const Contact = () => {
     setStatus("sending");
 
     const formData = new FormData(form.current);
-    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
-    formData.append("h-captcha-response", captchaToken);
+    const payload = Object.fromEntries(formData.entries());
+    payload.access_key = WEB3FORMS_ACCESS_KEY;
+    payload["h-captcha-response"] = captchaToken;
 
     try {
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
-        headers: { Accept: "application/json" },
-        body: formData,
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify(payload),
       });
       const result = await response.json();
 
