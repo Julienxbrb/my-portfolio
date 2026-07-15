@@ -3,7 +3,7 @@ import "./portfolio.css";
 import IMG1 from "../../assets/naturopathie.webp";
 import IMG2 from "../../assets/onepiece.webp";
 import IMG3 from "../../assets/sonder.webp";
-import IMG4 from "../../assets/guessnbRs.webp";
+import IMG4 from "../../assets/guessnbrs.webp";
 
 const Portfolio = () => {
   return (
