@@ -5,7 +5,7 @@ import { FiSmartphone } from "react-icons/fi";
 import { useRef, useState } from "react";
 import HCaptcha from "@hcaptcha/react-hcaptcha";
 
-const WEB3FORMS_ACCESS_KEY = "COLLE_TA_CLE_ICI"; // remplace par la clé reçue par email depuis web3forms.com
+const WEB3FORMS_ACCESS_KEY = "d2af5d2f-0859-4ac4-a438-91f259e56679";
 
 // Sitekey de test partagée par Web3Forms (fonctionne sans compte hCaptcha séparé).
 // Si tu veux un jour ton propre compte hCaptcha, remplace-la par ta sitekey perso.
