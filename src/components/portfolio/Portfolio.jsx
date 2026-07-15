@@ -24,7 +24,7 @@ const Portfolio = () => {
           title="One Piece fandom"
           subtitle="HTML/CSS, JavaScript et PHP"
           srcGithub="https://github.com/Julienxbrb/OnePiece-Fandom"
-          srcLiveDemo="https://onepiece.julien-bourbao.com"
+          srcLiveDemo="https://onepiece-wikifan.netlify.app"
         />
         <PortfolioItem
           src={IMG3}
