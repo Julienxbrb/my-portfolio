@@ -2,23 +2,38 @@ import React from "react";
 import "./contact.css";
 import { MdOutlineEmail } from "react-icons/md";
 import { FiSmartphone } from "react-icons/fi";
-import { useRef } from "react";
-import emailjs from "@emailjs/browser";
+import { useRef, useState } from "react";
+
+const WEB3FORMS_ACCESS_KEY = "d2af5d2f-0859-4ac4-a438-91f259e56679";
 
 const Contact = () => {
   const form = useRef();
+  const [status, setStatus] = useState(null); // null | "sending" | "success" | "error"
 
-  const sendEmail = (e) => {
+  const sendEmail = async (e) => {
     e.preventDefault();
+    setStatus("sending");
 
-    emailjs.sendForm(
-      "service_tfpggpb",
-      "template_pg4twk7",
-      form.current,
-      "Iru511qTV-Idbiggw",
-    );
+    const formData = new FormData(form.current);
+    formData.append("access_key", WEB3FORMS_ACCESS_KEY);
 
-    e.target.reset();
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: formData,
+      });
+      const result = await response.json();
+
+      if (result.success) {
+        setStatus("success");
+        e.target.reset();
+      } else {
+        setStatus("error");
+      }
+    } catch (error) {
+      setStatus("error");
+    }
   };
 
   return (
@@ -55,9 +70,24 @@ const Contact = () => {
             placeholder="Votre Message"
             required
           ></textarea>
-          <button type="submit" className="btn btn-primary">
-            Envoyer
+          <button
+            type="submit"
+            className="btn btn-primary"
+            disabled={status === "sending"}
+          >
+            {status === "sending" ? "Envoi en cours..." : "Envoyer"}
           </button>
+
+          {status === "success" && (
+            <p className="form-feedback form-feedback--success">
+              Message envoyé, merci ! Je te répondrai rapidement.
+            </p>
+          )}
+          {status === "error" && (
+            <p className="form-feedback form-feedback--error">
+              Une erreur est survenue, réessaie dans un instant.
+            </p>
+          )}
         </form>
       </div>
     </section>
