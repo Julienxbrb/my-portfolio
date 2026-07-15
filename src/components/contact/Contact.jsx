@@ -94,7 +94,6 @@ const Contact = () => {
           <HCaptcha
             ref={captchaRef}
             sitekey={HCAPTCHA_SITEKEY}
-            reCaptchaCompat={false}
             onVerify={(token) => {
               setCaptchaToken(token);
               setStatus(null);
@@ -117,12 +116,12 @@ const Contact = () => {
           )}
           {status === "success" && (
             <p className="form-feedback form-feedback--success">
-              Message envoyé, merci ! Je vous répondrai rapidement.
+              Message envoyé, merci ! Je te répondrai rapidement.
             </p>
           )}
           {status === "error" && (
             <p className="form-feedback form-feedback--error">
-              Une erreur est survenue, réessayez dans un instant.
+              Une erreur est survenue, réessaie dans un instant.
             </p>
           )}
         </form>
