@@ -24,8 +24,8 @@ const Portfolio = () => {
           src={IMG1}
           title="Site de naturopathie"
           subtitle="Stacks : HTML/CSS, JavaScript"
-          srcGithub="https://github.com/Julienxbrb/Naturopathy"
-          srcLiveDemo="https://litanagc.netlify.app"
+          srcGithub="https://github.com/Julienxbrb/NGC_Naturopathie"
+          srcLiveDemo="https://ngc-naturopathie.vercel.app"
         />
         <PortfolioItem
           src={IMG2}
